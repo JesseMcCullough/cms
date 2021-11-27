@@ -32,3 +32,9 @@ Since a new page has no content initially, the New Page template should be empty
 
 !["Add new section"](https://jessem.dev/images/pages-new.png "Add new section")
 !["New section"](https://jessem.dev/images/pages-new-click.png "New section")
+
+## Changelog
+**11/27/2021**
+
+Added side navigation menu.
+!["Side navigation menu"](https://jessem.dev/images/11-27-2021-side-navigation.jfif "Add new section")
