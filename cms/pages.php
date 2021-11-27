@@ -1,5 +1,6 @@
 <?php
 $pageTitle = "Pages";
+$activeNavigationLink = "pages";
 require_once("includes/header.php");
 ?>
 

@@ -1,3 +1,15 @@
+<?php
+$cmsPages = ["pages", "navigation", "forms", "support"];
+$pageTitle;
+$activeNavigationLink;
+
+function applyActiveNavigationLink($name) {
+	global $activeNavigationLink;
+	if ($activeNavigationLink == $name) {
+		return 'class="active"';
+	}
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,5 +20,20 @@
 	<title><?php echo $pageTitle; ?> | CMS</title>
 </head>
 <body>
-<!-- TO-DO: Add side navigation bar. -->
-<!-- TO-DO: Add content area. -->
+	<div class="side-nav">
+		<p class="greeting">Welcome, User<span class="site">site.com</span></p>
+		<ul>
+			<?php
+			foreach ($cmsPages as $page) {
+				echo '<li>';
+				echo '<a href="' . $page . '.php"';
+				echo ' ' . applyActiveNavigationLink($page) . ">";
+				echo ucfirst($page);
+				echo "</a></li>\n";
+			}
+			?>
+		</ul>
+		<p class="copyright">Copyright &copy; 2021 Jesse McCullough. All Rights Reserved.</p>
+	</div>
+
+	<div class="content">
