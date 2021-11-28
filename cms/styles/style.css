@@ -74,7 +74,7 @@ body {
     text-align: center;
     margin: 0 auto;
     padding: 20px 10px;
-    color: #3d3d3d;
+    color: #515151;
 }
 
 /***********/
@@ -86,4 +86,85 @@ body {
     float: left;
     background: #3d3d3d;
     height: 100vh;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 3%;
+}
+
+.content h1 {
+    font-size: 3em;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.content .button {
+    background: #787878;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 50px;
+    transition: color 0.4s, background-color 0.4s;
+}
+
+.content .button:hover {
+    color: #c6c6c6;
+}
+
+/*******************/
+/* Content - Pages */
+/*******************/
+
+.content.pages h1 {
+    float: left;
+}
+
+.content.pages .button.new {
+    float: right;
+    background: #3b9fcb;
+}
+
+.content.pages .button.new:hover {
+    background: #287ca1;
+}
+
+.content.pages .table-pages {
+    width: 100%;
+    border-spacing: 0 10px;
+}
+
+.content.pages .table-pages th {
+    font-weight: normal;
+    text-align: left;
+}
+
+.content.pages .table-pages td {
+    height: 50px;
+    background: #353535;
+    font-size: 1.25em;
+}
+
+.content.pages .table-pages .column-name {
+    width: 30%;
+    padding-left: 15px;
+}
+
+.content.pages .table-pages .column-updated {
+    width: 50%;
+}
+
+.content.pages .table-pages .column-edit {
+    width: 20%;
+}
+
+.content.pages .table-pages .button.edit {
+    background: #62cf76;
+    width: 100%;
+    height: 100%;
+}
+
+.content.pages .table-pages .button.edit:hover {
+    background: #4b9d5a;
 }

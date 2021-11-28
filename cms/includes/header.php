@@ -1,5 +1,6 @@
 <?php
 $cmsPages = ["pages", "navigation", "forms", "support"];
+$contentId;
 $pageTitle;
 $activeNavigationLink;
 
@@ -36,4 +37,4 @@ function applyActiveNavigationLink($name) {
 		<p class="copyright">Copyright &copy; 2021 Jesse McCullough. All Rights Reserved.</p>
 	</div>
 
-	<div class="content">
+	<div class="content <?php echo $contentId; ?>">
