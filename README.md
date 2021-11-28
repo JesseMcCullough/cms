@@ -34,6 +34,12 @@ Since a new page has no content initially, the New Page template should be empty
 !["New section"](https://jessem.dev/images/pages-new-click.png "New section")
 
 ## Changelog
+**11/28/2021**
+
+Added layout to the Pages UI.
+!["Pages UI"](https://jessem.dev/images/11-28-2021-pages-table.jfif "Pages UI")
+
+
 **11/27/2021**
 
 Added side navigation menu.
