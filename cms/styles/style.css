@@ -64,16 +64,17 @@ body {
 .side-nav .active {
     padding-bottom: 10px;
     border-bottom: 1px solid #686868;
-    transition: border-color 0.4s;
+    transition: color 0.4s, border-color 0.4s;
 }
-
 
 .side-nav .copyright {
     position: absolute;
     bottom: 0;
     font-size: 0.625em;
     text-align: center;
-    margin: 0 auto 20px;
+    margin: 0 auto;
+    padding: 20px 10px;
+    color: #3d3d3d;
 }
 
 /***********/
