@@ -1,16 +1,11 @@
 <?php
-$cmsPages = ["pages", "navigation", "forms", "support"];
-$contentId;
-$pageTitle;
-$activeNavigationLink;
 
-function applyActiveNavigationLink($name) {
-	global $activeNavigationLink;
-	if ($activeNavigationLink == $name) {
-		return 'class="active"';
-	}
-}
+require_once "autoloader.php";
+
+$cmsPages = ["pages", "navigation", "forms", "support"];
+
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,18 +13,18 @@ function applyActiveNavigationLink($name) {
 	<meta charset="UTF-8" />
 	<link href="images/favicon.ico" type="image/x-icon" rel="icon" />
 	<link href="styles/style.css" type="text/css" rel="stylesheet" />
-	<title><?php echo $pageTitle; ?> | CMS</title>
+	<title><?php echo $this->getTitle(); ?> | CMS</title>
 </head>
 <body>
 	<div class="side-nav">
 		<p class="greeting">Welcome, User<span class="site">site.com</span></p>
 		<ul>
 			<?php
-			foreach ($cmsPages as $page) {
+			foreach ($cmsPages as $cmsPage) {
 				echo '<li>';
-				echo '<a href="' . $page . '.php"';
-				echo ' ' . applyActiveNavigationLink($page) . ">";
-				echo ucfirst($page);
+				echo '<a href="' . $cmsPage . '.php"';
+				echo $this->applyActiveNavigationLink($cmsPage) . ">";
+				echo ucfirst($cmsPage);
 				echo "</a></li>\n";
 			}
 			?>
@@ -37,4 +32,4 @@ function applyActiveNavigationLink($name) {
 		<p class="copyright">Copyright &copy; 2021 Jesse McCullough. All Rights Reserved.</p>
 	</div>
 
-	<div class="content <?php echo $contentId; ?>">
+	<div class="content <?php echo $this->getContentId(); ?>">

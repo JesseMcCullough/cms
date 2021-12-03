@@ -20,6 +20,7 @@ body {
     background: #252525;
     height: 100vh;
     position: relative;
+    font-size: 1.25em;
 }
 
 .side-nav a {

@@ -1,8 +1,13 @@
 <?php
-$contentId = "pages";
-$pageTitle = "Pages";
-$activeNavigationLink = "pages";
-require_once("includes/header.php");
+
+require_once("classes/Page.php");
+
+$page = new Page();
+$page->setTitle("Pages");
+$page->setContentId("pages");
+$page->setActiveNavigationLink("pages");
+$page->createHeader();
+
 ?>
 
 <h1>Pages</h1>
