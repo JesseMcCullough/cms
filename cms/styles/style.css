@@ -8,6 +8,11 @@ body {
     font-size: 16px;
     font-family: Arial;
     color: #ffffff;
+    background: #3d3d3d;
+}
+
+.hidden {
+    display: none;
 }
 
 /*******************/
@@ -168,4 +173,51 @@ body {
 
 .content.pages .table-pages .button.edit:hover {
     background: #4b9d5a;
+}
+
+/**********************/
+/* Content - New Page */
+/**********************/
+
+.content.new-page .section {
+    background: #353535;
+    width: 100%;
+    height: 40%;
+    padding: 20px;
+    font-size: 1em;
+}
+
+.content.new-page .section.add-new {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6f6f6f;
+}
+
+.content.new-page .section.add-new {
+    transition: background-color 0.1s;
+    cursor: pointer;
+}
+
+.content.new-page .section.add-new:hover {
+    background: #303030;
+}
+
+.content.new-page .section.add-new #add-icon {
+    font-size: 4em;
+    display: block;
+}
+
+.content.new-page .section.new #select-section {
+    width: 100%;
+    height: 50px;
+    background: #2e2e2e;
+    color: #ffffff;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding-left: 10px;
+    cursor: pointer;
+    display: block;
 }

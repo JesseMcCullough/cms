@@ -6,12 +6,13 @@ $page = new Page();
 $page->setTitle("Pages");
 $page->setContentId("pages");
 $page->setActiveNavigationLink("pages");
+$page->setPathToHeader("includes/header.php");
 $page->createHeader();
 
 ?>
 
 <h1>Pages</h1>
-<a href="#" class="button new">New Page</a> <!-- TO-DO: Make "New Page" button create a new page. -->
+<a href="new-page.php" class="button new">New Page</a> <!-- TO-DO: Make "New Page" button create a new page. -->
 <table class="table-pages">
     <thead>
         <tr>

@@ -2,9 +2,28 @@
 
 class Page {
 
+    private $name;
+    private $id;
     private $title;
     private $contentId;
     private $activeNavigationLink;
+    private $pathToHeader;
+
+    public function __construct() {
+        $this->pathToHeader = "includes/header";
+    }
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getId() {
+        return 1;
+    }
 
     public function getTitle() {
         return $this->title;
@@ -36,8 +55,16 @@ class Page {
         }
     }
     
+    public function getPathToHeader() {
+        return $this->pathToHeader;
+    }
+
+    public function setPathToHeader($pathToHeader) {
+        $this->pathToHeader = $pathToHeader;
+    }
+    
     public function createHeader() {
-        include_once("includes/header.php");
+        include_once($this->pathToHeader);
     }
     
 }
