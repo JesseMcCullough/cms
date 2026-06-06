@@ -5,26 +5,55 @@ import * as pageModel from "#models/page";
 // updatePage
 // getPage
 // getPages
-export function createPage(req, res) {
+export function create(req, res) {
     try {
         const { title, slug } = req.body;
 
         if (!title || !slug) {
             return res
                 .status(400)
-                .json({ error: "Title and slug are required." });
+                .json({ error: "Title and slug are required" });
         }
 
-        const result = pageModel.createPage(title, slug);
+        pageModel.create(title, slug);
 
         return res.status(201).json({ message: "Page created" });
     } catch (err) {
         if (err.message === "DUPLICATE_SLUG") {
-            res.status(409).json({ error: "Slug already exists" });
+            return res.status(409).json({ error: "Slug already exists" });
         }
 
         console.error(err);
 
-        res.status(500).json({ error: "Server error" });
+        return res.status(500).json({ error: "Server error" });
+    }
+}
+
+export function update(req, res) {
+    try {
+        const id = Number(req.params.id);
+        const data = req.body;
+
+        if (!id || !Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ error: "Invalid ID" });
+        }
+
+        if (!data.title && !data.slug) {
+            return res
+                .status(400)
+                .json({ error: "Title or slug is required." });
+        }
+
+        pageModel.update(id, data);
+
+        return res.status(200).json({ message: "Page updated" });
+    } catch (err) {
+        if (err.message === "PAGE_NOT_FOUND") {
+            return res.status(404).json({ error: "Page not found" });
+        }
+
+        console.error(err);
+
+        return res.status(500).json({ error: "Server error" });
     }
 }

@@ -1,9 +1,10 @@
 import express from "express";
-import { createPage } from "#controllers/page";
+import * as pageController from "#controllers/page";
 
 const router = express.Router();
 
-router.post("/", createPage);
+router.post("/", pageController.create);
+router.patch("/:id", pageController.update);
 
 // router.post('/pages', createPage);
 // router.get('/pages', getPages);
