@@ -5,11 +5,6 @@ const router = express.Router();
 
 router.post("/", pageController.create);
 router.patch("/:id", pageController.update);
-
-// router.post('/pages', createPage);
-// router.get('/pages', getPages);
-// router.get('/pages/:id', getPage);
-// router.put('/pages/:id', updatePage);
-// router.delete('/pages/:id', deletePage);
+router.delete("/:id", pageController.remove);
 
 export default router;

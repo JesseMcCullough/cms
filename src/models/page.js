@@ -56,3 +56,16 @@ export function update(id, data) {
         success: true,
     };
 }
+
+export function remove(id) {
+    const statement = database.prepare("DELETE FROM pages WHERE id = ?");
+    const result = statement.run(id);
+
+    if (result.changes === 0) {
+        throw new Error("PAGE_NOT_FOUND");
+    }
+
+    return {
+        success: true,
+    };
+}
