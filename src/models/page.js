@@ -69,3 +69,24 @@ export function remove(id) {
         success: true,
     };
 }
+
+export function addSection(id, sectionId, content) {
+    const statement = database.prepare(
+        "INSERT INTO page_sections (page_id, section_id, content) VALUES (?, ?, ?)",
+    );
+
+    try {
+        statement.run(id, sectionId, content);
+    } catch (err) {
+        if (err.errcode === 787) {
+            throw new Error("INVALID_ID");
+        }
+
+        throw err;
+    }
+    // validate id, sectlionId, content maps to fields
+
+    return {
+        success: true,
+    };
+}

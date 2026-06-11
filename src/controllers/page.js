@@ -24,6 +24,7 @@ export function create(req, res) {
     }
 }
 
+// check if updated slug conflicts with an existing slug.
 export function update(req, res) {
     try {
         const id = Number(req.params.id);
@@ -67,6 +68,36 @@ export function remove(req, res) {
     } catch (err) {
         if (err.message === "PAGE_NOT_FOUND") {
             return res.status(404).json({ error: "Page not found" });
+        }
+
+        console.error(err);
+
+        return res.status(500).json({ error: "Server error" });
+    }
+}
+
+export function addSection(req, res) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!id || !Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ error: "Invalid ID" });
+        }
+
+        const data = req.body;
+
+        if (!data || !data.sectionId || !data.content) {
+            return res
+                .status(400)
+                .json({ error: "ID, sectionId, and content are required" });
+        }
+
+        pageModel.addSection(id, data.sectionId, data.content);
+
+        return res.status(201).json({ message: "Page added section" });
+    } catch (err) {
+        if (err.message === "INVALID_ID") {
+            return res.status(400).json({ error: "Invalid ID or sectionId" });
         }
 
         console.error(err);
