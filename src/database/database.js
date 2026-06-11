@@ -14,8 +14,8 @@ database.exec(`
     CREATE TABLE IF NOT EXISTS sections (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
-    fields TEXT NOT NULL,
-    component_name TEXT
+    title TEXT NOT NULL,
+    fields TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS page_sections (
