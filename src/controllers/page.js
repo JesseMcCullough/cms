@@ -1,4 +1,5 @@
 import * as pageModel from "#models/page";
+import AppError from "#apperror";
 
 export function create(req, res) {
     try {
@@ -14,13 +15,7 @@ export function create(req, res) {
 
         return res.status(201).json({ message: "Page created" });
     } catch (err) {
-        if (err.message === "DUPLICATE_SLUG") {
-            return res.status(409).json({ error: "Slug already exists" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
 }
 
@@ -44,13 +39,7 @@ export function update(req, res) {
 
         return res.status(200).json({ message: "Page updated" });
     } catch (err) {
-        if (err.message === "PAGE_NOT_FOUND") {
-            return res.status(404).json({ error: "Page not found" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
 }
 
@@ -66,13 +55,7 @@ export function remove(req, res) {
 
         return res.status(204).send();
     } catch (err) {
-        if (err.message === "PAGE_NOT_FOUND") {
-            return res.status(404).json({ error: "Page not found" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
 }
 
@@ -96,12 +79,16 @@ export function addSection(req, res) {
 
         return res.status(201).json({ message: "Page added section" });
     } catch (err) {
-        if (err.message === "INVALID_ID") {
-            return res.status(400).json({ error: "Invalid ID or sectionId" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
+}
+
+function handleError(err, res) {
+    if (err instanceof AppError) {
+        return res.status(err.statusCode).json({ error: err.message });
+    }
+
+    console.error(err);
+
+    return res.status(500).json({ error: "Server error" });
 }

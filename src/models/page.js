@@ -1,4 +1,5 @@
 import database from "#database";
+import AppError from "#apperror";
 
 export function create(title, slug) {
     const insert = database.prepare(
@@ -9,7 +10,7 @@ export function create(title, slug) {
         insert.run(title, slug);
     } catch (err) {
         if (err.errcode === 2067) {
-            throw new Error("DUPLICATE_SLUG");
+            throw AppError.conflict(`Slug already exists`);
         }
 
         throw err;
@@ -35,7 +36,7 @@ export function update(id, data) {
     }
 
     if (updates.length === 0) {
-        throw new Error("NO_FIELDS_PROVIDED");
+        throw AppError.badRequest("No fields provided");
     }
 
     values.push(id);
@@ -49,7 +50,7 @@ export function update(id, data) {
     const result = statement.run(...values);
 
     if (result.changes === 0) {
-        throw new Error("PAGE_NOT_FOUND");
+        throw AppError.notFound("Page not found");
     }
 
     return {
@@ -62,7 +63,7 @@ export function remove(id) {
     const result = statement.run(id);
 
     if (result.changes === 0) {
-        throw new Error("PAGE_NOT_FOUND");
+        throw AppError.notFound("Page not found");
     }
 
     return {
@@ -79,7 +80,7 @@ export function addSection(id, sectionId, content) {
         statement.run(id, sectionId, content);
     } catch (err) {
         if (err.errcode === 787) {
-            throw new Error("INVALID_ID");
+            throw AppError.notFound("pageId or sectionId not found");
         }
 
         throw err;

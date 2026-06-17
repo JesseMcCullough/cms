@@ -1,4 +1,5 @@
 import database from "#database";
+import AppError from "#apperror";
 
 // probably need to do some kind of stringify thingy with the fields
 
@@ -12,7 +13,7 @@ export function create(name, title, fields) {
         insert.run(name, title, fields);
     } catch (err) {
         if (err.errcode === 2067) {
-            throw new Error("DUPLICATE_NAME");
+            throw AppError.conflict("Section name already exists");
         }
 
         throw err;
@@ -43,7 +44,7 @@ export function update(id, data) {
     }
 
     if (updates.length === 0) {
-        throw new Error("NO_FIELDS_PROVIDED");
+        throw AppError.badRequest("No fields provided");
     }
 
     values.push(id);
@@ -57,7 +58,7 @@ export function update(id, data) {
     const result = statement.run(...values);
 
     if (result.changes === 0) {
-        throw new Error("SECTION_NOT_FOUND");
+        throw AppError.notFound("Section not found");
     }
 
     // update page_sections relationships
@@ -72,7 +73,7 @@ export function remove(id) {
     const result = statement.run(id);
 
     if (result.changes === 0) {
-        throw new Error("SECTION_NOT_FOUND");
+        throw AppError.notFound("Section not found");
     }
 
     // remove page_sections relationships

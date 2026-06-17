@@ -1,4 +1,5 @@
 import * as sectionModel from "#models/section";
+import AppError from "#apperror";
 
 export function create(req, res) {
     try {
@@ -14,13 +15,7 @@ export function create(req, res) {
 
         return res.status(201).json({ message: "Section created" });
     } catch (err) {
-        if (err.message === "DUPLICATE_NAME") {
-            return res.status(409).json({ error: "Section already exists" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
 }
 
@@ -44,13 +39,7 @@ export function update(req, res) {
 
         return res.status(200).json({ message: "Section updated" });
     } catch (err) {
-        if (err.message === "SECTION_NOT_FOUND") {
-            return res.status(404).json({ error: "Section not found" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
 }
 
@@ -66,12 +55,16 @@ export function remove(req, res) {
 
         return res.status(204).send();
     } catch (err) {
-        if (err.message === "SECTION_NOT_FOUND") {
-            return res.status(404).json({ error: "Section not found" });
-        }
-
-        console.error(err);
-
-        return res.status(500).json({ error: "Server error" });
+        handleError(err, res);
     }
+}
+
+function handleError(err, res) {
+    if (err instanceof AppError) {
+        return res.status(err.statusCode).json({ error: err.message });
+    }
+
+    console.error(err);
+
+    return res.status(500).json({ error: "Server error" });
 }
