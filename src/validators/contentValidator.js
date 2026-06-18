@@ -1,3 +1,5 @@
+import AppError from "#apperror";
+
 export function validateContent(content, schema) {
     /**
      * content: {
@@ -16,7 +18,7 @@ export function validateContent(content, schema) {
         const fieldSchema = schema[fieldName];
 
         if (!fieldSchema) {
-            throw new Error(`${fieldName} doesn't exist in schema`);
+            throw AppError.badRequest(`${fieldName} doesn't exist in schema`);
         }
     }
 
@@ -25,7 +27,7 @@ export function validateContent(content, schema) {
         const value = content[fieldName];
 
         if (schemaField.required && value === undefined) {
-            throw new Error(`${fieldName} is required`);
+            throw AppError.badRequest(`${fieldName} is required`);
         }
 
         // passed required check and no value, no further checks necessary
@@ -36,19 +38,19 @@ export function validateContent(content, schema) {
         switch (schemaField.type) {
             case "string":
                 if (typeof value !== "string") {
-                    throw new Error(`${fieldName} must be a string`);
+                    throw AppError.badRequest(`${fieldName} must be a string`);
                 }
 
                 const minLength = schemaField.minLength;
                 if (minLength !== undefined && value.length < minLength) {
-                    throw new Error(
+                    throw AppError.badRequest(
                         `${fieldName} must be at least ${minLength} characters`,
                     );
                 }
 
                 const maxLength = schemaField.maxLength;
                 if (maxLength !== undefined && value.length > maxLength) {
-                    throw new Error(
+                    throw AppError.badRequest(
                         `${fieldName} must be no more than ${maxLength} characters`,
                     );
                 }
@@ -56,23 +58,27 @@ export function validateContent(content, schema) {
                 break;
             case "boolean":
                 if (typeof value !== "boolean") {
-                    throw new Error(`${fieldName} must be a boolean`);
+                    throw AppError.badRequest(`${fieldName} must be a boolean`);
                 }
 
                 break;
             case "number":
                 if (typeof value !== "number") {
-                    throw new Error(`${fieldName} must be a number`);
+                    throw AppError.badRequest(`${fieldName} must be a number`);
                 }
 
                 const min = schemaField.min;
                 if (min !== undefined && value < min) {
-                    throw new Error(`${fieldName} must be at least ${min}`);
+                    throw AppError.badRequest(
+                        `${fieldName} must be at least ${min}`,
+                    );
                 }
 
                 const max = schemaField.max;
                 if (max !== undefined && value > max) {
-                    throw new Error(`${fieldName} must be no more than ${max}`);
+                    throw AppError.badRequest(
+                        `${fieldName} must be no more than ${max}`,
+                    );
                 }
 
                 break;
