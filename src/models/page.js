@@ -1,5 +1,7 @@
 import database from "#database";
 import AppError from "#apperror";
+import { validateContent } from "#validators/contentValidator";
+import { getFields } from "#models/section";
 
 export function create(title, slug) {
     const insert = database.prepare(
@@ -72,12 +74,20 @@ export function remove(id) {
 }
 
 export function addSection(id, sectionId, content) {
+    if (typeof content !== "object") {
+        throw AppError.badRequest("'content' must be an object");
+    }
+
+    const sectionSchema = getFields(sectionId);
+
+    validateContent(content, sectionSchema);
+
     const statement = database.prepare(
         "INSERT INTO page_sections (page_id, section_id, content) VALUES (?, ?, ?)",
     );
 
     try {
-        statement.run(id, sectionId, content);
+        statement.run(id, sectionId, JSON.stringify(content));
     } catch (err) {
         if (err.errcode === 787) {
             throw AppError.notFound("pageId or sectionId not found");
@@ -85,7 +95,6 @@ export function addSection(id, sectionId, content) {
 
         throw err;
     }
-    // validate id, sectlionId, content maps to fields
 
     return {
         success: true,
