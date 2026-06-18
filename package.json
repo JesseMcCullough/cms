@@ -14,7 +14,8 @@
         "#controllers/*": "./src/controllers/*.js",
         "#database": "./src/database/database.js",
         "#models/*": "./src/models/*.js",
-        "#apperror": "./src/errors/appError.js"
+        "#apperror": "./src/errors/appError.js",
+        "#validators/*": "./src/validators/*.js"
     },
     "dependencies": {
         "express": "^5.2.1"
