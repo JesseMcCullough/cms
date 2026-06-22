@@ -100,3 +100,40 @@ export function addSection(id, sectionId, content) {
         success: true,
     };
 }
+
+/**
+ * entire content schema needs to be provided
+ */
+export function updateSection(pageSectionId, content) {
+    if (typeof content !== "object") {
+        throw AppError.badRequest("'content' must be an object");
+    }
+
+    const sectionIdStatement = database.prepare(
+        "SELECT section_id FROM page_sections WHERE id = ?",
+    );
+    const sectionId = sectionIdStatement.get(pageSectionId)?.section_id;
+
+    if (!sectionId) {
+        throw AppError.notFound("pageSectionId not found");
+    }
+
+    console.log(sectionId);
+
+    const sectionSchema = getFields(sectionId);
+
+    validateContent(content, sectionSchema);
+
+    const statement = database.prepare(
+        "UPDATE page_sections SET content = ? WHERE id = ?",
+    );
+    const result = statement.run(JSON.stringify(content), pageSectionId);
+
+    if (result.changes === 0) {
+        throw AppError.notFound("pageSectionId not found");
+    }
+
+    return {
+        success: true,
+    };
+}

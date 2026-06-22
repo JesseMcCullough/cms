@@ -83,6 +83,28 @@ export function addSection(req, res) {
     }
 }
 
+// PATCH /pages/content/4 <- pageSections id, not the page id, weird mental model, might change
+export function updateSection(req, res) {
+    try {
+        const id = Number(req.params.id);
+        const data = req.body.content;
+
+        if (!id || !Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ error: "Invalid ID" });
+        }
+
+        if (!data) {
+            return res.status(400).json({ error: "content is required." });
+        }
+
+        pageModel.updateSection(id, data);
+
+        return res.status(200).json({ message: "Page updated section" });
+    } catch (err) {
+        handleError(err, res);
+    }
+}
+
 function handleError(err, res) {
     if (err instanceof AppError) {
         return res.status(err.statusCode).json({ error: err.message });
