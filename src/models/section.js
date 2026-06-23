@@ -117,8 +117,6 @@ export function remove(id) {
         throw AppError.notFound("Section not found");
     }
 
-    // remove page_sections relationships
-
     return {
         success: true,
     };

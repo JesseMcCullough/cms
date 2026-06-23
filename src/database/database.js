@@ -24,8 +24,8 @@ database.exec(`
     section_id INTEGER NOT NULL,
     content TEXT NOT NULL,
 
-    FOREIGN KEY (page_id) REFERENCES pages(id),
-    FOREIGN KEY (section_id) REFERENCES sections(id)
+    FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE,
+    FOREIGN KEY (section_id) REFERENCES sections(id) ON DELETE CASCADE
     );
 `);
 
