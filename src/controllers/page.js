@@ -83,7 +83,6 @@ export function addSection(req, res) {
     }
 }
 
-// PATCH /pages/content/4 <- pageSections id, not the page id, weird mental model, might change
 export function updateSection(req, res) {
     try {
         const id = Number(req.params.id);

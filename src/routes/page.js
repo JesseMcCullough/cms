@@ -5,7 +5,6 @@ const router = express.Router();
 
 router.post("/", pageController.create);
 router.post("/:id", pageController.addSection);
-router.patch("/content/:id", pageController.updateSection); // might change to new route
 router.patch("/:id", pageController.update);
 router.delete("/:id", pageController.remove);
 
