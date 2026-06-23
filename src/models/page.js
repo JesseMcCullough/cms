@@ -137,3 +137,18 @@ export function updateSection(pageSectionId, content) {
         success: true,
     };
 }
+
+export function removeSection(pageSectionId) {
+    const statement = database.prepare(
+        "DELETE FROM page_sections WHERE id = ?",
+    );
+    const result = statement.run(pageSectionId);
+
+    if (result.changes === 0) {
+        throw AppError.notFound("Page section not found");
+    }
+
+    return {
+        success: true,
+    };
+}

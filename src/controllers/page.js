@@ -104,6 +104,22 @@ export function updateSection(req, res) {
     }
 }
 
+export function removeSection(req, res) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!id || !Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ error: "Invalid ID" });
+        }
+
+        pageModel.removeSection(id);
+
+        return res.status(204).send();
+    } catch (err) {
+        handleError(err, res);
+    }
+}
+
 function handleError(err, res) {
     if (err instanceof AppError) {
         return res.status(err.statusCode).json({ error: err.message });
