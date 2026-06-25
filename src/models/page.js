@@ -118,8 +118,6 @@ export function updateSection(pageSectionId, content) {
         throw AppError.notFound("pageSectionId not found");
     }
 
-    console.log(sectionId);
-
     const sectionSchema = getFields(sectionId);
 
     validateContent(content, sectionSchema);
