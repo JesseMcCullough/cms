@@ -1,26 +1,24 @@
 {
     "name": "cms",
+    "private": true,
     "version": "1.0.0",
     "description": "",
-    "type": "module",
+    "homepage": "https://github.com/JesseMcCullough/cms#readme",
+    "bugs": {
+        "url": "https://github.com/JesseMcCullough/cms/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/JesseMcCullough/cms.git"
+    },
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
     "main": "index.js",
     "scripts": {
-        "start": "node src/index.js",
-        "dev": "nodemon src/index.js"
-    },
-    "author": "",
-    "license": "ISC",
-    "imports": {
-        "#controllers/*": "./src/controllers/*.js",
-        "#database": "./src/database/database.js",
-        "#models/*": "./src/models/*.js",
-        "#apperror": "./src/errors/appError.js",
-        "#validators/*": "./src/validators/*.js"
-    },
-    "dependencies": {
-        "express": "^5.2.1"
+        "dev": "concurrently -n API,ADMIN -c blue,green \"npm run dev --prefix api\" \"npm run dev --prefix admin\""
     },
     "devDependencies": {
-        "nodemon": "^3.1.14"
+        "concurrently": "^10.0.3"
     }
 }
