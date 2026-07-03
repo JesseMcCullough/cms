@@ -1,6 +1,14 @@
 import * as pageModel from "#models/page";
 import AppError from "#apperror";
 
+export function getAll(req, res) {
+    try {
+        return res.status(200).json(pageModel.getAll());
+    } catch (err) {
+        handleError(err, res);
+    }
+}
+
 export function create(req, res) {
     try {
         const data = req.body;

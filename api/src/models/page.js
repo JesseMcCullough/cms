@@ -3,6 +3,12 @@ import AppError from "#apperror";
 import { validateContent } from "#validators/contentValidator";
 import { getFields } from "#models/section";
 
+export function getAll() {
+    const select = database.prepare("SELECT * FROM pages");
+
+    return select.all();
+}
+
 export function create(title, slug) {
     const insert = database.prepare(
         "INSERT INTO pages (title, slug) VALUES (?, ?)",
