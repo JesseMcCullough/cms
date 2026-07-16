@@ -9,6 +9,17 @@ export function getAll() {
     return select.all();
 }
 
+export function get(id) {
+    const statement = database.prepare("SELECT * FROM pages WHERE id = ?");
+    const result = statement.get(id);
+
+    if (!result) {
+        throw AppError.notFound("Page not found");
+    }
+
+    return result;
+}
+
 export function create(title, slug) {
     const insert = database.prepare(
         "INSERT INTO pages (title, slug) VALUES (?, ?)",

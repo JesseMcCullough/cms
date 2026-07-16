@@ -9,6 +9,20 @@ export function getAll(req, res) {
     }
 }
 
+export function get(req, res) {
+    try {
+        const id = Number(req.params.id);
+
+        if (!id || !Number.isInteger(id) || id < 1) {
+            return res.status(400).json({ error: "Invalid ID" });
+        }
+
+        return res.status(200).json(pageModel.get(id));
+    } catch (err) {
+        handleError(err, res);
+    }
+}
+
 export function create(req, res) {
     try {
         const data = req.body;
