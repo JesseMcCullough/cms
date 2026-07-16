@@ -1,6 +1,7 @@
 import { Routes, Route, Link } from "react-router";
 import CreatePage from "@/CreatePage";
 import ViewPages from "@/ViewPages";
+import EditPage from "@/EditPage";
 
 export default function App() {
     return (
@@ -12,6 +13,7 @@ export default function App() {
             <Routes>
                 <Route path="/pages/create" element={<CreatePage />} />
                 <Route path="/pages" element={<ViewPages />} />
+                <Route path="/pages/edit/:id" element={<EditPage />} />
             </Routes>
         </>
     );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 export default function ViewPages() {
     const [pages, setPages] = useState([]);
@@ -24,9 +25,11 @@ export default function ViewPages() {
     return (
         <div>
             {pages.map((page) => (
-                <p key={page.id}>
-                    {page.title} (/{page.slug})
-                </p>
+                <Link to={`/pages/edit/${page.id}`} key={page.id}>
+                    <p>
+                        {page.title} (/{page.slug})
+                    </p>
+                </Link>
             ))}
         </div>
     );
