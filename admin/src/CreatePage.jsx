@@ -4,7 +4,7 @@ export default function CreatePage() {
     return (
         <>
             <h1>Create</h1>
-            <PageForm submitLabel="Create Page" />;
+            <PageForm submitLabel="Create Page" />
         </>
     );
 }

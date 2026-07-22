@@ -2,23 +2,47 @@ import { useState, useEffect } from "react";
 
 /*
  * maybe get list of slugs so that real-time unique slug checking can be done.
- *
- * need to readjust so that when given a title / slug, it'll update the page instead of creating one.
- * should pass pageId instead of title and slug then.
  */
-export default function PageForm({
-    title = "",
-    slug = "",
-    submitLabel = "Submit",
-}) {
-    const [formData, setFormData] = useState({ title, slug });
+export default function PageForm({ id, submitLabel = "Submit" }) {
+    const [formData, setFormData] = useState({ title: "", slug: "" });
     const [errors, setErrors] = useState({});
 
-    console.log(formData);
-
     useEffect(() => {
-        setFormData({ title, slug });
-    }, [title, slug]);
+        if (!id) {
+            return;
+        }
+
+        const fetchPage = async () => {
+            try {
+                const res = await fetch(`/api/pages/${id}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                });
+
+                if (!res.ok) {
+                    if (res.status === 404) {
+                        setErrors({ system: "Page not found" });
+                        return;
+                    }
+
+                    const errorData = await res.json();
+
+                    if (errorData.error) {
+                        setErrors({ general: errorData.error });
+                    }
+
+                    return;
+                }
+
+                const data = await res.json();
+                setFormData({ title: data.title, slug: data.slug });
+            } catch (err) {
+                setErrors({ general: "Network error. Please try again" });
+            }
+        };
+
+        fetchPage();
+    }, [id]);
 
     function handleChange(e) {
         const { name, value } = e.target;
@@ -40,8 +64,16 @@ export default function PageForm({
         }
 
         try {
-            const res = await fetch("/api/pages", {
-                method: "POST",
+            let endpoint = "/api/pages";
+            let method = "POST";
+
+            if (id) {
+                endpoint += `/${id}`;
+                method = "PATCH";
+            }
+
+            const res = await fetch(endpoint, {
+                method,
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
             });
@@ -74,6 +106,10 @@ export default function PageForm({
         }
 
         return errors;
+    }
+
+    if (errors.system) {
+        return <p>{errors.system}</p>;
     }
 
     return (
