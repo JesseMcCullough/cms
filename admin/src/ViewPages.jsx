@@ -25,11 +25,19 @@ export default function ViewPages() {
     return (
         <div>
             {pages.map((page) => (
-                <Link to={`/pages/edit/${page.id}`} key={page.id}>
-                    <p>
-                        {page.title} (/{page.slug})
-                    </p>
-                </Link>
+                <div className="view-pages" key={page.id}>
+                    <Link to={`/pages/edit/${page.id}`}>
+                        <p>
+                            {page.title} (/{page.slug})
+                        </p>
+                    </Link>
+                    <Link
+                        to={`/pages/delete/${page.id}`}
+                        state={{ title: page.title }}
+                    >
+                        Delete
+                    </Link>
+                </div>
             ))}
         </div>
     );
