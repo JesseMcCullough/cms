@@ -41,7 +41,6 @@ export function create(req, res) {
     }
 }
 
-// check if updated slug conflicts with an existing slug.
 export function update(req, res) {
     try {
         const id = Number(req.params.id);

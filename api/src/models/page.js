@@ -66,10 +66,18 @@ export function update(id, data) {
         WHERE id = ?
     `);
 
-    const result = statement.run(...values);
+    try {
+        const result = statement.run(...values);
 
-    if (result.changes === 0) {
-        throw AppError.notFound("Page not found");
+        if (result.changes === 0) {
+            throw AppError.notFound("Page not found");
+        }
+    } catch (err) {
+        if (err.errcode === 2067) {
+            throw AppError.conflict("Slug already exists");
+        }
+
+        throw err;
     }
 
     return {
